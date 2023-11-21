@@ -629,6 +629,12 @@ namespace ChessBot
                         whiteCastleRightKingSide = false;
                     }
                 }
+                else if (curMove.isPromotion)
+                {
+                    whitePieceBitboard = ULONG_OPERATIONS.SetBitToOne(ULONG_OPERATIONS.SetBitToZero(tWPB, tStartPos), tEndPos);
+                    blackPieceBitboard = ULONG_OPERATIONS.SetBitToZero(tBPB, tEndPos);
+                    pieceTypeArray[tStartPos] = tPieceType = curMove.promotionType;
+                }
                 else if (curMove.isEnPassant)
                 {
                     whitePieceBitboard = ULONG_OPERATIONS.SetBitToOne(ULONG_OPERATIONS.SetBitToZero(tWPB, tStartPos), tEndPos);
@@ -705,6 +711,7 @@ namespace ChessBot
                     pieceTypeArray[curMove.rochadeStartPos] = 4;
                     pieceTypeArray[curMove.rochadeEndPos] = 0;
                 }
+                else if (curMove.isPromotion) pieceTypeArray[tStartPos] = 1;
                 else if (curMove.isEnPassant) pieceTypeArray[curMove.enPassantOption] = 1;
 
                 #endregion
@@ -818,6 +825,12 @@ namespace ChessBot
                         blackCastleRightKingSide = false;
                     }
                 }
+                else if (curMove.isPromotion)
+                {
+                    blackPieceBitboard = ULONG_OPERATIONS.SetBitToOne(ULONG_OPERATIONS.SetBitToZero(tBPB, tStartPos), tEndPos);
+                    whitePieceBitboard = ULONG_OPERATIONS.SetBitToZero(tWPB, tEndPos);
+                    pieceTypeArray[tStartPos] = tPieceType = curMove.promotionType;
+                }
                 else if (curMove.isEnPassant)
                 {
                     blackPieceBitboard = ULONG_OPERATIONS.SetBitToOne(ULONG_OPERATIONS.SetBitToZero(tBPB, tStartPos), tEndPos);
@@ -890,6 +903,7 @@ namespace ChessBot
                     pieceTypeArray[curMove.rochadeStartPos] = 4;
                     pieceTypeArray[curMove.rochadeEndPos] = 0;
                 }
+                else if (curMove.isPromotion) pieceTypeArray[tStartPos] = 1;
                 else if (curMove.isEnPassant) pieceTypeArray[curMove.enPassantOption] = 1;
 
                 #endregion
